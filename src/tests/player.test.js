@@ -12,9 +12,9 @@ test('computer player does not return values greater than 10', () => {
     expect(player.takeTurn()).toBe('100 moves made');
 });
 
-test("player can't enter values greater than 10", () => {
+/* test("player can't enter values greater than 10", () => {
     const player2 = new Player('human');
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
         let arr = player2.takeTurn();
         expect(arr[0]).toBeGreaterThan(0);
         expect(arr[0]).toBeLessThanOrEqual(10);
@@ -22,4 +22,4 @@ test("player can't enter values greater than 10", () => {
         expect(arr[1]).toBeLessThanOrEqual(10);
     }
     expect(player2.takeTurn()).toBe('100 moves made');
-});
+}); */

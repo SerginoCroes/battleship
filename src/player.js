@@ -10,7 +10,7 @@ export class Player {
         if (this.type === 'computer') {
             const x = Math.floor(Math.random() * 10 + 1);
             const y = Math.floor(Math.random() * 10 + 1);
-            
+
             if (this.moves.length >= 100) {
                 return '100 moves made';
             }
@@ -25,6 +25,7 @@ export class Player {
             const y = prompt('enter y coordinate', 'y');
 
             if (this.moves.length >= 100) {
+                alert('100 moves made');
                 return '100 moves made';
             } else if (x < 1 || x > 10 || y < 1 || y > 10) {
                 alert('enter values between 1 and 10');
