@@ -25,17 +25,54 @@ h1 {
 }
 
 .board {
+    display: grid;
+    grid-template-columns: 2fr repeat(10, 3fr);
+    grid-template-rows: 2fr 2fr repeat(10, 3fr);
     flex-shrink: 0;
     height: min(40vw, 50vh);
     width: min(40vw, 50vh);
-    background-color: #fff;
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    border: 1px solid #aaa;
+    background-color: #fff; 
+}
 
+.boardheader {
+    grid-area: 1 / 1 / 2 / 12;
+}
+
+.xcoords, .ycoords {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.xcoords {
+    grid-area: 2 / 2 / 3 / 12;    
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.ycoords {
+    grid-area: 3 / 1 / 13 / 2;
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.boardheader, .corner, .xcoords, .ycoords {
+    background-color: #eee;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #222;  
 }
 
 .box {
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
 }
+
+.ship {
+    position: relative;
+    background-color: #333;
+    height: 280%;
+    width: 80%;
+    margin: 10%;
+    border-radius: 100%;
+}
+
+/* 2 3 3 4 5 */
