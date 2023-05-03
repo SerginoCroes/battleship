@@ -28,22 +28,23 @@ h1 {
     display: grid;
     grid-template-columns: 2fr repeat(10, 3fr);
     grid-template-rows: 2fr 2fr repeat(10, 3fr);
-    flex-shrink: 0;    
-    background-color: #fff; 
+    flex-shrink: 0;
+    background-color: #fff;
 }
 
 .boardheader {
     grid-area: 1 / 1 / 2 / 12;
 }
 
-.xcoords, .ycoords {
+.xcoords,
+.ycoords {
     display: grid;
     align-items: center;
     justify-items: center;
 }
 
 .xcoords {
-    grid-area: 2 / 2 / 3 / 12;    
+    grid-area: 2 / 2 / 3 / 12;
     grid-template-columns: repeat(10, 1fr);
 }
 
@@ -52,13 +53,16 @@ h1 {
     grid-template-rows: repeat(10, 1fr);
 }
 
-.boardheader, .corner, .xcoords, .ycoords {
+.boardheader,
+.corner,
+.xcoords,
+.ycoords {
     background-color: #eee;
     text-align: center;
     font-size: min(2vw, 2vh);
     font-family: sans-serif;
     font-weight: bold;
-    color: #222;  
+    color: #222;
 }
 
 .box {
@@ -68,8 +72,8 @@ h1 {
 }
 
 .box:hover {
-    outline: 4px solid #f88;   
-    outline-offset: -4px; 
+    outline: 4px solid #f88;
+    outline-offset: -4px;
 }
 
 .ship {

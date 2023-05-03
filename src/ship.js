@@ -1,4 +1,4 @@
-const ships = {patrol: 2, submarine: 3, destroyer: 3, battleship: 4, carrier: 5};
+const ships = { patrol: 2, submarine: 3, destroyer: 3, battleship: 4, carrier: 5 };
 
 export class Ship {
     constructor(type) {
@@ -9,10 +9,10 @@ export class Ship {
     }
 
     hit() {
-        this.hits ++;
+        this.hits++;
     }
 
-    isSunk () {
+    isSunk() {
         return this.hits >= this.length ? true : false;
     }
 }
