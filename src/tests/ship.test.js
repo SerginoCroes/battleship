@@ -1,7 +1,7 @@
 import {Ship} from '../ship';
 
 test('ship is sunk when hits exceed length, but not earlier', () => {
-    const ship = new Ship(3);
+    const ship = new Ship('submarine');
     ship.hit();
     expect(ship.isSunk()).not.toBe(true);
     expect(ship.isSunk()).toBe(false);
@@ -11,7 +11,7 @@ test('ship is sunk when hits exceed length, but not earlier', () => {
     expect(ship.isSunk()).not.toBe(false);
     expect(ship.isSunk()).toBe(true);
 
-    const longShip = new Ship(5);
+    const longShip = new Ship('carrier');
     longShip.hit();
     expect(longShip.isSunk()).not.toBe(true);
     expect(longShip.isSunk()).toBe(false);

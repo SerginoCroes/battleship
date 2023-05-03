@@ -16,7 +16,27 @@
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addShip\": () => (/* binding */ addShip),\n/* harmony export */   \"buildBoard\": () => (/* binding */ buildBoard),\n/* harmony export */   \"enemyBoard\": () => (/* binding */ enemyBoard),\n/* harmony export */   \"playerBoard\": () => (/* binding */ playerBoard)\n/* harmony export */ });\nconst playerBoard = document.querySelector('.playerboard');\nconst enemyBoard = document.querySelector('.enemyboard');\n\nfunction buildBoard(board) {\n    for (let i = 0; i < 100; i++) {\n        let box = document.createElement('div');\n        box.classList.add(`box`);\n        box.classList.add(`box${i}`);\n        board.appendChild(box);\n    }\n    buildLegend(board);\n}\n\nfunction buildLegend(board) {\n    const xcoords = board.querySelector('.xcoords');\n    const ycoords = board.querySelector('.ycoords');\n\n     for (let i = 1; i <= 10; i++) {\n        const xcoord = document.createElement('div');\n        xcoord.classList.add('coord');\n        const xtext = document.createElement('p');\n        xtext.textContent = `${i}`;\n        xcoord.appendChild(xtext);\n        xcoords.appendChild(xcoord);\n\n        const ycoord = document.createElement('div');\n        ycoord.classList.add('coord');\n        const ytext = document.createElement('p');\n        ytext.textContent = String.fromCharCode(64+i);\n        ycoord.appendChild(ytext);\n        ycoords.appendChild(ycoord);\n    } \n}\n\nfunction addShip(x, y, length) {\n    \n}\n\n//# sourceURL=webpack://battleship/./src/dom.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addShip\": () => (/* binding */ addShip),\n/* harmony export */   \"buildBoard\": () => (/* binding */ buildBoard),\n/* harmony export */   \"clickBox\": () => (/* binding */ clickBox),\n/* harmony export */   \"enemyBoard\": () => (/* binding */ enemyBoard),\n/* harmony export */   \"playerBoard\": () => (/* binding */ playerBoard)\n/* harmony export */ });\nconst playerBoard = document.querySelector('.playerboard');\nconst enemyBoard = document.querySelector('.enemyboard');\n\nlet lastClicked = [];\n\nfunction buildBoard(board) {\n    for (let i = 0; i < 100; i++) {\n        const box = document.createElement('div');\n        box.classList.add(`box`);\n        box.classList.add(`box${i%10}${Math.floor(i/10)}`);\n        box.addEventListener('click', () => {\n            //console.log('clicked', i%10, Math.floor(i/10));\n            lastClicked = [i, true];\n        });\n        board.appendChild(box);\n    }\n    buildLegend(board);\n}\n\nfunction buildLegend(board) {\n    const xcoords = board.querySelector('.xcoords');\n    const ycoords = board.querySelector('.ycoords');\n\n     for (let i = 1; i <= 10; i++) {\n        const xcoord = document.createElement('div');\n        xcoord.classList.add('coord');\n        const xtext = document.createElement('p');\n        xtext.textContent = `${i}`;\n        xcoord.appendChild(xtext);\n        xcoords.appendChild(xcoord);\n\n        const ycoord = document.createElement('div');\n        ycoord.classList.add('coord');\n        const ytext = document.createElement('p');\n        ytext.textContent = String.fromCharCode(64+i);\n        ycoord.appendChild(ytext);\n        ycoords.appendChild(ycoord);\n    } \n}\n\nfunction addShip(x, y, type, board) {\n    const ship = document.createElement('div');\n    const box = board.querySelector(`.box${x}${y}`);\n    ship.classList.add('ship');\n    ship.classList.add(type);\n    box.appendChild(ship);\n}\n\nfunction clickBox() {\n    if (lastClicked[1]) {\n        lastClicked[1] = false;\n        return [Math.floor(lastClicked[0]/10), lastClicked[0]%10];\n    }\n}\n\n//# sourceURL=webpack://battleship/./src/dom.js?");
+
+/***/ }),
+
+/***/ "./src/game.js":
+/*!*********************!*\
+  !*** ./src/game.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"addShips\": () => (/* binding */ addShips),\n/* harmony export */   \"player1\": () => (/* binding */ player1),\n/* harmony export */   \"player2\": () => (/* binding */ player2),\n/* harmony export */   \"tempShipArr\": () => (/* binding */ tempShipArr)\n/* harmony export */ });\n/* harmony import */ var _gameboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gameboard */ \"./src/gameboard.js\");\n/* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./player */ \"./src/player.js\");\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n\n\n\n\nconst tempShipArr = [[1, 1, 'patrol'], [3, 1, 'submarine'], [5, 1, 'destroyer'], [7, 1, 'battleship'], [9, 1, 'carrier']];\n\nconst player1 = new _player__WEBPACK_IMPORTED_MODULE_1__.Player('human');\nconst player2 = new _player__WEBPACK_IMPORTED_MODULE_1__.Player('computer');\n\nplayer1.gameBoard = new _gameboard__WEBPACK_IMPORTED_MODULE_0__.GameBoard();\nplayer2.gameBoard = new _gameboard__WEBPACK_IMPORTED_MODULE_0__.GameBoard();\n\nfunction addShips() {\n    for (let i = 0; i < 5; i++) {\n        player1.gameBoard.placeShip(...tempShipArr[i]);\n        (0,_dom__WEBPACK_IMPORTED_MODULE_2__.addShip)(tempShipArr[i][0], tempShipArr[i][1], tempShipArr[i][2], document.querySelector('.playerboard'));\n        player2.gameBoard.placeShip(...tempShipArr[i]);\n    }\n}\n\n\n//# sourceURL=webpack://battleship/./src/game.js?");
+
+/***/ }),
+
+/***/ "./src/gameboard.js":
+/*!**************************!*\
+  !*** ./src/gameboard.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"GameBoard\": () => (/* binding */ GameBoard)\n/* harmony export */ });\n/* harmony import */ var _ship__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship */ \"./src/ship.js\");\n\n\nclass GameBoard {\n    constructor() {\n        this.ships = 0;\n    }\n\n    placeShip(x, y, type) {\n        const ship = new _ship__WEBPACK_IMPORTED_MODULE_0__.Ship(type);\n        for (let i = 0; i < ship.length; i++) {\n            this[`${x}, ${y + i}`] = ship;\n        }\n        this.ships ++;\n    }\n\n    receiveAttack([x, y]) {\n        if (typeof this[`${x}, ${y}`] === 'object') {\n            this[`${x}, ${y}`].hit();\n            if (this[`${x}, ${y}`].isSunk()) this.ships --;\n            this[`${x}, ${y}`] = 'hit';\n            return 'hit';\n        } else return this[`${x}, ${y}`] = 'miss';    \n    }\n\n    shipsLeft() {\n        return this.ships;\n    }\n}\n\n//# sourceURL=webpack://battleship/./src/gameboard.js?");
 
 /***/ }),
 
@@ -26,7 +46,27 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n\n\n(0,_dom__WEBPACK_IMPORTED_MODULE_0__.buildBoard)(_dom__WEBPACK_IMPORTED_MODULE_0__.playerBoard);\n(0,_dom__WEBPACK_IMPORTED_MODULE_0__.buildBoard)(_dom__WEBPACK_IMPORTED_MODULE_0__.enemyBoard);\n\nconsole.log('test');\n\n\n\n//# sourceURL=webpack://battleship/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game */ \"./src/game.js\");\n\n\n\n(0,_dom__WEBPACK_IMPORTED_MODULE_0__.buildBoard)(_dom__WEBPACK_IMPORTED_MODULE_0__.playerBoard);\n(0,_dom__WEBPACK_IMPORTED_MODULE_0__.buildBoard)(_dom__WEBPACK_IMPORTED_MODULE_0__.enemyBoard);\n(0,_game__WEBPACK_IMPORTED_MODULE_1__.addShips)();\n\nwindow.player = _game__WEBPACK_IMPORTED_MODULE_1__.player1;\nwindow.enemy = _game__WEBPACK_IMPORTED_MODULE_1__.player2;\n\nconsole.log('test', player, enemy);\n\n\n//# sourceURL=webpack://battleship/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/player.js":
+/*!***********************!*\
+  !*** ./src/player.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Player\": () => (/* binding */ Player)\n/* harmony export */ });\n//import { GameBoard } from \"./gameboard\";\n\nclass Player {\n    constructor(type) {\n        this.type = type;\n        this.moves = [];\n    }\n\n    takeTurn(cb) {\n        if (this.type === 'computer') {\n            const x = Math.floor(Math.random() * 10 + 1);\n            const y = Math.floor(Math.random() * 10 + 1);\n\n            if (this.moves.length >= 100) {\n                return '100 moves made';\n            }\n            else if (this.moves.reduce((val, arr) => (arr[0] === x && arr[1] === y) || val, false)) {\n                return this.takeTurn();\n            } else {\n                this.moves.push([x, y]);\n                return [x, y];\n            }\n        } else if (this.type === 'human') {\n            [x, y] = cb();\n\n            if (this.moves.length >= 100) {\n                alert('100 moves made');\n                return '100 moves made';\n            } else if (x < 1 || x > 10 || y < 1 || y > 10) {\n                alert('enter values between 1 and 10');\n                return this.takeTurn();\n            } else {\n                this.moves.push([x, y]);\n                return [x, y];\n            }\n        }\n    }\n}\n\n//# sourceURL=webpack://battleship/./src/player.js?");
+
+/***/ }),
+
+/***/ "./src/ship.js":
+/*!*********************!*\
+  !*** ./src/ship.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Ship\": () => (/* binding */ Ship)\n/* harmony export */ });\nconst ships = {patrol: 2, submarine: 3, destroyer: 3, battleship: 4, carrier: 5};\n\nclass Ship {\n    constructor(type) {\n        this.type = type;\n        this.length = ships[type];\n        this.hits = 0;\n        this.hasSunk = 0;\n    }\n\n    hit() {\n        this.hits ++;\n    }\n\n    isSunk () {\n        return this.hits >= this.length ? true : false;\n    }\n}\n\n\n\n//# sourceURL=webpack://battleship/./src/ship.js?");
 
 /***/ })
 

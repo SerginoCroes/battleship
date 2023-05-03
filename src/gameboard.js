@@ -5,15 +5,15 @@ export class GameBoard {
         this.ships = 0;
     }
 
-    placeShip(x, y, length) {
-        const ship = new Ship(length);
-        for (let i = 0; i < length; i++) {
+    placeShip(x, y, type) {
+        const ship = new Ship(type);
+        for (let i = 0; i < ship.length; i++) {
             this[`${x}, ${y + i}`] = ship;
         }
         this.ships ++;
     }
 
-    receiveAttack(x, y) {
+    receiveAttack([x, y]) {
         if (typeof this[`${x}, ${y}`] === 'object') {
             this[`${x}, ${y}`].hit();
             if (this[`${x}, ${y}`].isSunk()) this.ships --;

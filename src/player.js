@@ -6,7 +6,7 @@ export class Player {
         this.moves = [];
     }
 
-    takeTurn() {
+    takeTurn(cb) {
         if (this.type === 'computer') {
             const x = Math.floor(Math.random() * 10 + 1);
             const y = Math.floor(Math.random() * 10 + 1);
@@ -21,8 +21,7 @@ export class Player {
                 return [x, y];
             }
         } else if (this.type === 'human') {
-            const x = prompt('enter x coordinate', 'x');
-            const y = prompt('enter y coordinate', 'y');
+            [x, y] = cb();
 
             if (this.moves.length >= 100) {
                 alert('100 moves made');

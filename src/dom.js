@@ -1,11 +1,17 @@
 export const playerBoard = document.querySelector('.playerboard');
 export const enemyBoard = document.querySelector('.enemyboard');
 
+let lastClicked = [];
+
 export function buildBoard(board) {
     for (let i = 0; i < 100; i++) {
-        let box = document.createElement('div');
+        const box = document.createElement('div');
         box.classList.add(`box`);
-        box.classList.add(`box${i}`);
+        box.classList.add(`box${i%10}${Math.floor(i/10)}`);
+        box.addEventListener('click', () => {
+            //console.log('clicked', i%10, Math.floor(i/10));
+            lastClicked = [i, true];
+        });
         board.appendChild(box);
     }
     buildLegend(board);
@@ -32,6 +38,17 @@ function buildLegend(board) {
     } 
 }
 
-export function addShip(x, y, length) {
-    
+export function addShip(x, y, type, board) {
+    const ship = document.createElement('div');
+    const box = board.querySelector(`.box${x}${y}`);
+    ship.classList.add('ship');
+    ship.classList.add(type);
+    box.appendChild(ship);
+}
+
+export function clickBox() {
+    if (lastClicked[1]) {
+        lastClicked[1] = false;
+        return [Math.floor(lastClicked[0]/10), lastClicked[0]%10];
+    }
 }
