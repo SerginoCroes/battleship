@@ -66,24 +66,35 @@ h1 {
 }
 
 .box {
+    position: relative;
     border: 1px solid #ccc;
     height: min(4vw, 4vh);
     width: min(4vw, 4vh);
 }
 
-.box:hover {
+.box:hover::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
     outline: 4px solid #f88;
     outline-offset: -4px;
+    z-index: 10;
 }
 
 .ship {
     position: relative;
     z-index: 2;
     border-radius: 1vw 1vw 100% 100%;
-    background-color: #222;
+    background-color: #444;
     width: 80%;
     margin: min(0.4vw, 0.4vh);
     pointer-events: none;
+}
+
+.enemyboard>.box>.ship {
+    background-color: #ddd;
 }
 
 .patrol {
@@ -114,6 +125,32 @@ h1 {
     font-size: min(2vw, 2vh);
     font-family: sans-serif;
     font-weight: bold;
+}
+
+/* <div class="hit"></div> */
+/* <div class="miss"></div> */
+
+.hit,
+.miss {
+    position: absolute;
+    border-radius: 100%;
+    z-index: 5;
+}
+
+.hit {
+    background-image: radial-gradient(#ff0, #f00);
+    margin: 10%;
+    width: 80%;
+    height: 80%;
+    /* outline: 3px dashed #f00; */
+}
+
+.miss {
+    background-image: radial-gradient(#fff, 30%, #222 50%);
+    ;
+    margin: 30%;
+    width: 40%;
+    height: 40%;
 }
 
 /* patrol 2, submarine 3, destroyer 3, battleship 4, carrier 5 */

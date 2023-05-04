@@ -5,7 +5,7 @@ export class Ship {
         this.type = type;
         this.length = ships[type];
         this.hits = 0;
-        this.hasSunk = 0;
+        this.hasSunk = false;
     }
 
     hit() {
