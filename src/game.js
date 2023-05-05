@@ -1,12 +1,14 @@
 import { GameBoard } from "./gameboard";
+import { drawShip, drawDot, message } from "./dom";
 import { Player } from "./player";
-import { addShip, drawDot, message } from "./dom";
 
 export const player1 = new Player('human');
 export const player2 = new Player('computer');
 
 player1.gameBoard = new GameBoard();
 player2.gameBoard = new GameBoard();
+
+let winner = false;
 
 /////////////////////
 
@@ -15,25 +17,44 @@ const tempShipArr = [[5, 6, 'patrol'], [1, 1, 'submarine'], [3, 3, 'destroyer'],
 export function tempAddShips() {
     for (let i = 0; i < 5; i++) {
         player1.gameBoard.placeShip(...tempShipArr[i]);
-        addShip(...tempShipArr[i], document.querySelector('.playerboard'));
+        drawShip(...tempShipArr[i], document.querySelector('.playerboard'));
         player2.gameBoard.placeShip(...tempShipArr[i]);
-        //addShip(...tempShipArr[i], document.querySelector('.enemyboard'));
+        //drawShip(...tempShipArr[i], document.querySelector('.enemyboard'));
     }
 }
 
 /////////////////////
 
 export function game() {
-    while (player1.gameBoard.shipsLeft() !== 0 && player2.gameBoard.shipsLeft() !== 0) {
-        let player2Turn = player2.takeTurn();
-        let player1Turn = player1.takeTurn();
+    while (!winner) {
+        let p2strike = 'miss';
+        do {
+            let player2Turn = player2.takeTurn();
+            p2strike = player1.gameBoard.receiveAttack(player2Turn);
+            
+            drawDot(player2Turn, p2strike, document.querySelector('.playerboard')); 
 
-        drawDot(player2Turn, player1.gameBoard.receiveAttack(player2Turn), document.querySelector('.playerboard'));
-        drawDot(player1Turn, player2.gameBoard.receiveAttack(player1Turn), document.querySelector('.enemyboard'));
-    }
-    if (player1.gameBoard.shipsLeft() === 0) {
-        message('Enemy won');
-    } else {
-        message('You won');
+        } while(p2strike === 'hit');
+
+        if (player1.gameBoard.shipsLeft() === 0) {
+            winner = true;
+            message('Enemy won');
+            break;
+        }
+
+        let p1strike = 'miss'
+        do {
+            let player1Turn = player1.takeTurn();
+            p1strike = player2.gameBoard.receiveAttack(player1Turn);
+            
+            drawDot(player1Turn, p1strike, document.querySelector('.enemyboard'));  
+
+        } while(p1strike === 'hit');
+
+        if (player2.gameBoard.shipsLeft() === 0){
+            winner = true;
+            message('You won');
+        }
     }
 }
+

@@ -127,9 +127,6 @@ h1 {
     font-weight: bold;
 }
 
-/* <div class="hit"></div> */
-/* <div class="miss"></div> */
-
 .hit,
 .miss {
     position: absolute;
@@ -139,15 +136,16 @@ h1 {
 
 .hit {
     background-image: radial-gradient(#ff0, #f00);
-    margin: 10%;
-    width: 80%;
-    height: 80%;
-    /* outline: 3px dashed #f00; */
+    margin: 20%;
+    width: 60%;
+    height: 60%;
+    border: 4px dashed #f40;
+    outline: 6px dotted #f00;
+    outline-offset: -3px;
 }
 
 .miss {
     background-image: radial-gradient(#fff, 30%, #222 50%);
-    ;
     margin: 30%;
     width: 40%;
     height: 40%;

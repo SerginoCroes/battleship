@@ -1,14 +1,20 @@
-export const playerBoard = document.querySelector('.playerboard');
-export const enemyBoard = document.querySelector('.enemyboard');
+const playerBoard = document.querySelector('.playerboard');
+const enemyBoard = document.querySelector('.enemyboard');
 const textField = document.querySelector('.textfield');
 
-export function buildBoard(board) {
+export function buildBoards() {
+    buildBoard(playerBoard);
+    buildBoard(enemyBoard);
+}
+
+function buildBoard(board) {
     for (let i = 0; i < 100; i++) {
         const box = document.createElement('div');
         box.classList.add(`box`);
         box.classList.add(`box${i % 10}${Math.floor(i / 10)}`);
         box.addEventListener('click', () => {
-            console.log('clicked', i % 10, Math.floor(i / 10));
+            const coords = [i % 10, Math.floor(i / 10)];
+            console.log('clicked', `${coords[0] + 1}${String.fromCharCode(65 + coords[1])}`);
         });
         board.appendChild(box);
     }
@@ -36,7 +42,7 @@ function buildLegend(board) {
     }
 }
 
-export function addShip(x, y, type, board) {
+export function drawShip(x, y, type, board) {
     const ship = document.createElement('div');
     const box = board.querySelector(`.box${x}${y}`);
     ship.classList.add('ship');

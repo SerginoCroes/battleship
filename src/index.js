@@ -1,14 +1,10 @@
-import { buildBoard, enemyBoard, playerBoard } from "./dom";
+import { buildBoards } from "./dom";
 import { player1, player2, tempAddShips, game } from "./game";
 
-buildBoard(playerBoard);
-buildBoard(enemyBoard);
+buildBoards();
 tempAddShips();
-
-window.player = player1;
-window.enemy = player2;
 
 
 game();
 
-console.log('test', player, enemy);
+console.log('test', player1, player2);
