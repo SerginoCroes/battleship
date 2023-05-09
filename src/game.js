@@ -35,13 +35,15 @@ function step([x, y]) {
     let p2strike = 'miss';
     let p1strike = 'miss';
 
-    let player1Turn = [x, y]
+    let player1Turn = player1.takeTurn(x, y);
+    if (typeof player1Turn !== 'object') return;
     p1strike = player2.gameBoard.receiveAttack(player1Turn);            
     drawDot(player1Turn, p1strike, document.querySelector('.enemyboard'));
     
     if (player2.gameBoard.shipsLeft() === 0){
         winner = true;
         message('You won');
+        addFunc(() => 0);
     }
 
     if (p1strike === 'miss') {
