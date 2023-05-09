@@ -2,9 +2,15 @@ const playerBoard = document.querySelector('.playerboard');
 const enemyBoard = document.querySelector('.enemyboard');
 const textField = document.querySelector('.textfield');
 
+let funct;
+
 export function buildBoards() {
     buildBoard(playerBoard);
     buildBoard(enemyBoard);
+}
+
+export function addFunc(func) {
+    funct = func;
 }
 
 function buildBoard(board) {
@@ -15,6 +21,7 @@ function buildBoard(board) {
         box.addEventListener('click', () => {
             const coords = [i % 10, Math.floor(i / 10)];
             console.log('clicked', `${coords[0] + 1}${String.fromCharCode(65 + coords[1])}`);
+            funct(coords);
         });
         board.appendChild(box);
     }
