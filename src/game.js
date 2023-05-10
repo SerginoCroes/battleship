@@ -52,7 +52,7 @@ function step([x, y]) {
     let p1strike = 'miss';
 
     let player1Turn = player1.takeTurn(x, y);
-    if (typeof player1Turn === 'string') return;
+    if (typeof player1Turn !== 'object') return;
     p1strike = player2.gameBoard.receiveAttack(player1Turn);
     drawDot(player1Turn, p1strike, document.querySelector('.enemyboard'));
 
@@ -63,11 +63,24 @@ function step([x, y]) {
     }
 
     if (p1strike === 'miss') {
-        do {
-            let player2Turn = player2.takeTurn();
+        let player2Turn = player2.takeTurn();
+        p2strike = player1.gameBoard.receiveAttack(player2Turn);
+        drawDot(player2Turn, p2strike, document.querySelector('.playerboard'));
+
+        while (p2strike === 'hit') {
+            let horVer = Math.random() > 0.5;
+            if (player2Turn[0] > 0 && player2Turn[0] < 10 && horVer) {
+                player2Turn = player2.takeTurn(player2Turn[0] += Math.random() > 0.5 ? -1 : 1, player2Turn[1]);
+            } else if (player2Turn[1] > 0 && player2Turn[1] < 10 && !horVer) {
+                player2Turn = player2.takeTurn(player2Turn[0], player2Turn[1] += Math.random() > 0.5 ? -1 : 1);
+            } else {
+                player2Turn = player2.takeTurn();
+            }
+
+
             p2strike = player1.gameBoard.receiveAttack(player2Turn);
             drawDot(player2Turn, p2strike, document.querySelector('.playerboard'));
-        } while (p2strike === 'hit');
+        } 
 
         if (player1.gameBoard.shipsLeft() === 0) {
             winner = true;

@@ -14,7 +14,7 @@ export class Player {
             }
         } else if (this.type === 'human') {            
             if (this.moves.reduce((val, arr) => (arr[0] === x && arr[1] === y) || val, false)) {
-                return 'invalid, already played';
+                return console.log('invalid, already played');
             } else {
                 this.moves.push([x, y]);
                 return ([x, y]);
