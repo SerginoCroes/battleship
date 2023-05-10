@@ -14,9 +14,9 @@ export class GameBoard {
                     for (let j = 0; j < i; j++) {
                         this[`${x}, ${y + j}`] = undefined;
                     }
-                    return 'ships overlap or overflow';
+                    return console.log('ships overlap or overflow');
                 }
-            }            
+            }
         } else {
             for (let i = 0; i < ship.length; i++) {
                 if ((this[`${x + i}, ${y}`] === undefined) && (x + i <= 9)) this[`${x + i}, ${y}`] = ship;
@@ -24,7 +24,7 @@ export class GameBoard {
                     for (let j = 0; j < i; j++) {
                         this[`${x + j}, ${y}`] = undefined;
                     }
-                    return 'ships overlap or overflow';
+                    return console.log('ships overlap or overflow');
                 }
             }
         }
@@ -32,7 +32,7 @@ export class GameBoard {
         return 'ok';
     }
 
-    receiveAttack([x, y]) {                 
+    receiveAttack([x, y]) {
         if (typeof this[`${x}, ${y}`] === 'object') {
             this[`${x}, ${y}`].hit();
             if (this[`${x}, ${y}`].isSunk()) this.ships--;

@@ -22,7 +22,6 @@ export function computerAddShips() {
             x = Math.floor(Math.random() * 10);
             y = Math.floor(Math.random() * 10);
             placement = player2.gameBoard.placeShip(x, y, horizontal ,shipArr[i]);
-
         } while (placement !== 'ok');
         //drawShip([x, y], horizontal, shipArr[i], document.querySelector('.enemyboard'));
     }
@@ -35,16 +34,17 @@ export function game() {
 
 function addShip([x, y], horizontal) {    
     let i = player1.gameBoard.shipsLeft();
-    message(`place ${shipArr[i + 1]}`);
 
     if (player1.gameBoard.placeShip(...[x, y], horizontal, shipArr[i]) === 'ok') {
         drawShip([x, y], horizontal, shipArr[i], document.querySelector('.playerboard'));
+        message(`place ${shipArr[i + 1]}`);
+
+        if (i > 3) {
+            addFunc(step);
+            message(`game started`);
+        }
     }
 
-    if (i > 3) {
-        addFunc(step);
-        message(`game started`);
-    }
 }
 
 function step([x, y]) {
@@ -69,15 +69,13 @@ function step([x, y]) {
 
         while (p2strike === 'hit') {
             let horVer = Math.random() > 0.5;
-            if (player2Turn[0] > 0 && player2Turn[0] < 10 && horVer) {
+            if (player2Turn[0] > 0 && player2Turn[0] < 9 && horVer) {
                 player2Turn = player2.takeTurn(player2Turn[0] += Math.random() > 0.5 ? -1 : 1, player2Turn[1]);
-            } else if (player2Turn[1] > 0 && player2Turn[1] < 10 && !horVer) {
+            } else if (player2Turn[1] > 0 && player2Turn[1] < 9 && !horVer) {
                 player2Turn = player2.takeTurn(player2Turn[0], player2Turn[1] += Math.random() > 0.5 ? -1 : 1);
             } else {
                 player2Turn = player2.takeTurn();
             }
-
-
             p2strike = player1.gameBoard.receiveAttack(player2Turn);
             drawDot(player2Turn, p2strike, document.querySelector('.playerboard'));
         } 
