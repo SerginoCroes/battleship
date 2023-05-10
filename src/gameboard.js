@@ -7,7 +7,7 @@ export class GameBoard {
 
     placeShip(x, y, horizontal, type) {
         const ship = new Ship(type);
-        if (!horizontal) {
+        if (horizontal) {
             for (let i = 0; i < ship.length; i++) {
                 if ((this[`${x}, ${y + i}`] === undefined) && (y + i <= 9)) this[`${x}, ${y + i}`] = ship;
                 else {
@@ -16,7 +16,7 @@ export class GameBoard {
                     }
                     return console.log('ships overlap or overflow');
                 }
-            }
+            }            
         } else {
             for (let i = 0; i < ship.length; i++) {
                 if ((this[`${x + i}, ${y}`] === undefined) && (x + i <= 9)) this[`${x + i}, ${y}`] = ship;
@@ -32,7 +32,7 @@ export class GameBoard {
         return 'ok';
     }
 
-    receiveAttack([x, y]) {
+    receiveAttack([x, y]) {                 
         if (typeof this[`${x}, ${y}`] === 'object') {
             this[`${x}, ${y}`].hit();
             if (this[`${x}, ${y}`].isSunk()) this.ships--;

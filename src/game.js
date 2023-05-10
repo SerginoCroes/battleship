@@ -23,7 +23,7 @@ export function computerAddShips() {
             y = Math.floor(Math.random() * 10);
             placement = player2.gameBoard.placeShip(x, y, horizontal ,shipArr[i]);
         } while (placement !== 'ok');
-        //drawShip([x, y], horizontal, shipArr[i], document.querySelector('.enemyboard'));
+        drawShip([x, y], horizontal, shipArr[i], document.querySelector('.enemyboard'));
     }
 }
 

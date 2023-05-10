@@ -16,9 +16,9 @@ export function addFunc(func) {
 function buildBoard(board) {
     for (let i = 0; i < 100; i++) {
         const box = document.createElement('div');
-        const coords = [i % 10, Math.floor(i / 10)];
+        const coords = [Math.floor(i / 10), i % 10];
         box.classList.add(`box`);
-        box.classList.add(`box${i % 10}${Math.floor(i / 10)}`);
+        box.classList.add(`box${coords[0]}${coords[1]}`);
         box.addEventListener('click', () => {
             funct(coords, false);
         });
