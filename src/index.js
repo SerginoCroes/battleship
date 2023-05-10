@@ -1,9 +1,6 @@
 import { buildBoards } from "./dom";
-import { player1, player2, tempAddShips, game } from "./game";
+import { game, computerAddShips } from "./game";
 
 buildBoards();
-tempAddShips();
-
+computerAddShips();
 game();
-
-console.log('test', player1, player2);

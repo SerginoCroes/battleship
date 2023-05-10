@@ -16,12 +16,15 @@ export function addFunc(func) {
 function buildBoard(board) {
     for (let i = 0; i < 100; i++) {
         const box = document.createElement('div');
+        const coords = [i % 10, Math.floor(i / 10)];
         box.classList.add(`box`);
         box.classList.add(`box${i % 10}${Math.floor(i / 10)}`);
         box.addEventListener('click', () => {
-            const coords = [i % 10, Math.floor(i / 10)];
-            console.log('clicked', `${coords[0] + 1}${String.fromCharCode(65 + coords[1])}`);
-            funct(coords);
+            funct(coords, false);
+        });
+        box.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            funct(coords, true);
         });
         board.appendChild(box);
     }
@@ -49,11 +52,12 @@ function buildLegend(board) {
     }
 }
 
-export function drawShip(x, y, type, board) {
+export function drawShip([x, y], horizontal, type, board) {
     const ship = document.createElement('div');
     const box = board.querySelector(`.box${x}${y}`);
     ship.classList.add('ship');
     ship.classList.add(type);
+    if (horizontal) ship.classList.add('horizontal');
     box.appendChild(ship);
 }
 

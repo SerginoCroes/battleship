@@ -116,6 +116,17 @@ h1 {
 
 .carrier {
     height: 480%;
+    border-radius: 15%;
+
+}
+
+.ship.horizontal {
+    transform: rotate(-90deg); 
+    transform-origin: min(1.5vw, 1.5vh) min(1.5vw, 1.5vh);
+}
+
+.ship.place {
+    background-color: #44444488;
 }
 
 .messagebox {
